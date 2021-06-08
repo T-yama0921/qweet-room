@@ -49,6 +49,7 @@
   background-color: white;
   overflow: auto;
   border: black 1px solid;
+  margin: 10px auto;
 }
 
 /* .question{
