@@ -1,0 +1,22 @@
+<div class="header">
+  <div class="inner-header">
+    <h1 class="title">
+     Qweet Room
+    </h1>
+    <li class='new-post'>
+      <%= link_to "New Post", "#", class:"post-btn"%>
+    </li>
+  </div>
+</div>
+
+<div class="main">
+  <div class="question-wrap">
+    <% @tweets.each do |tweet|%>
+      <div class="question">
+        <p class="text">
+          <%= tweet.question %>
+        </p>
+      </div>
+    <%end%>
+  </div>
+</div>
