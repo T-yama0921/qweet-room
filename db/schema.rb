@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_073636) do
+ActiveRecord::Schema.define(version: 2021_06_08_160137) do
 
   create_table "tweets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "nickname", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "question", null: false
+    t.string "answer", default: "", null: false
+    t.string "first_incorrection", default: "", null: false
+    t.string "second_incorrection", default: "", null: false
+    t.text "answer_feedback"
+    t.text "first_feedback"
+    t.text "second_feedback"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -31,4 +39,5 @@ ActiveRecord::Schema.define(version: 2021_06_08_073636) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "tweets", "users"
 end
