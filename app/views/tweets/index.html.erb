@@ -16,13 +16,16 @@
 </div>
 
 <div class="main">
-  <div class="question-wrap">
-    <% @tweets.each do |tweet|%>
+  <% @tweets.each do |tweet|%>
+    <div class="question-wrap">
       <div class="question">
-        <p class="text">
-          <%= tweet.question %>
-        </p>
+        <%= tweet.question %>
       </div>
-    <%end%>
-  </div>
+      <ul class="choices">
+        <li class="answer"><%= tweet.answer %></li>
+        <li class="first_incorrection"><%= tweet.first_incorrection %></li>
+        <li class="second_incorrection"><%= tweet.second_incorrection %></li>
+      </ul>
+    </div>
+  <%end%>
 </div>
