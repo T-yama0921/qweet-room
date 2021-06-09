@@ -19,7 +19,7 @@
   <% @tweets.each do |tweet|%>
     <div class="question-wrap">
       <div class="question">
-        <%= tweet.question %>
+        <%=link_to tweet.question, tweet_path(tweet.id) %>
       </div>
       <ul class="choices">
         <li class="answer"><%= tweet.answer %></li>
