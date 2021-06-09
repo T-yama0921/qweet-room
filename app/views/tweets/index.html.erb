@@ -22,10 +22,13 @@
         <%=link_to tweet.question, tweet_path(tweet.id) %>
       </div>
       <ul class="choices">
-        <li class="answer"><%= tweet.answer %></li>
-        <li class="first_incorrection"><%= tweet.first_incorrection %></li>
-        <li class="second_incorrection"><%= tweet.second_incorrection %></li>
+        <li class="choice"><%= tweet.answer %></li>
+        <li class="choice"><%= tweet.first_incorrection %></li>
+        <li class="choice"><%= tweet.second_incorrection %></li>
       </ul>
+      <div class="nickname">
+        <%= tweet.user.nickname %>
+      </div>
     </div>
   <%end%>
 </div>
