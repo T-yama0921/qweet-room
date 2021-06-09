@@ -1,5 +1,7 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_tweet, only: [:show, :edit, :update]
+  before_action :redirect_to_index, only: [:edit, :update]
 
 
   def index
@@ -20,22 +22,41 @@ class TweetsController < ApplicationController
   end
 
   def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @tweet.update(tweet_params)
+      redirect_to tweet_path
+    else
+      render :edit
+    end
+  end
+
+  private
+
+  def tweet_params
+    params.require(:tweet).permit(
+      :question,
+      :answer,
+      :first_incorrection,
+      :second_incorrection,
+      :answer_feedback,
+      :first_feedback,
+      :second_feedback,
+    ).merge(
+      user_id: current_user.id
+    )
+  end
+
+  def set_tweet
     @tweet = Tweet.find(params[:id])
   end
-end
 
-private
+  def redirect_to_index
+    redirect_to action: :index unless current_user.id == @tweet.user.id
+  end
 
-def tweet_params
-  params.require(:tweet).permit(
-    :question,
-    :answer,
-    :first_incorrection,
-    :second_incorrection,
-    :answer_feedback,
-    :first_feedback,
-    :second_feedback,
-  ).merge(
-    user_id: current_user.id
-  )
 end
