@@ -1,0 +1,39 @@
+<div class="tweet-show">
+  <div class="tweet-box">
+    <h4 class="user-nickname">
+      投稿者：<%= @tweet.user.nickname %>
+    </h4>
+
+      <% if user_signed_in? && @tweet.user_id == current_user.id %>
+        <%= link_to "編集", "#", method: :get, class: "tweet-edit-btn" %>
+        <p class="or-text">or</p>
+        <%= link_to "削除", "#", method: :delete, class:"tweet-destroy" %>
+      <% end %>
+
+    <div class="question-box">
+      <div class="question-label">問題</div>
+      <div class="question-text"><%= @tweet.question %></div>
+    </div>
+    <div class="choices-table">
+      <ul class="choices">
+        <li class="choice"><%= @tweet.answer %></li>
+        <li class="choice"><%= @tweet.first_incorrection %></li>
+        <li class="choice"><%= @tweet.second_incorrection %></li>
+      </ul>
+      <ul class="feedbacks">
+        <li class="feedback" style="display: none;"><%= @tweet.answer_feedback %></li>
+        <li class="feedback" style="display: none;"><%= @tweet.first_feedback %></li>
+        <li class="feedback" style="display: none;"><%= @tweet.second_feedback %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="comment-box">
+    <div class="comment-label">コメント</div>
+    <form>
+      <textarea class="comment-text"></textarea>
+      <button type="submit" class="comment-btn">
+        <span>コメントする<span>
+      </button>
+    </form>
+  </div>
+</div>
