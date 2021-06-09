@@ -1,7 +1,7 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_tweet, only: [:show, :edit, :update]
-  before_action :redirect_to_index, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_to_index, only: [:edit, :update, :destroy]
 
 
   def index
@@ -33,6 +33,11 @@ class TweetsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @tweet.destroy
+    redirect_to root_path
   end
 
   private
