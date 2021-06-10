@@ -17,4 +17,4 @@ function answer (){
   });
  };
  
- window.addEventListener('load', answer);
+window.addEventListener('load', answer);
