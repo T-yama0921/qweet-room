@@ -15,18 +15,18 @@
       <div class="detail-question-initial">Ｑ.</div>
       <div class="detail-question-text"><%= @tweet.question %></div>
     </div>
-    <div class="detail-choices-table">
-      <div class="detail-choices">
-        <div class="detail-choice-box"><a href="" class="detail-choice"><%= @tweet.answer %></a></div>
-        <div class="detail-choice-box"><a href="" class="detail-choice"><%= @tweet.first_incorrection %></a></div>
-        <div class="detail-choice-box"><a href="" class="detail-choice"><%= @tweet.second_incorrection %></a></div>
-      </div>
+    <div class="detail-choices-box">
+      <input type="button" class="detail-choice" id="answer-choice" value="<%= @tweet.answer %>">
+      <input type="button" class="detail-choice" id="first-incorrection-choice" value="<%= @tweet.first_incorrection %>">
+      <input type="button" class="detail-choice" id="second-incorrection-choice" value="<%= @tweet.second_incorrection %>">
+    </div>
+    <div class="feedbacks-box">
       <div class="feedback-label">フィードバック</div>
-        <div class="feedbacks">
-        <div class="feedback" style="display: none;"><%= @tweet.answer_feedback %></div>
-        <div class="feedback" style="display: none;"><%= @tweet.first_feedback %></div>
-        <div class="feedback" style="display: none;"><%= @tweet.second_feedback %></div>
-      </ul>
+      <div class="feedbacks">
+        <div class="feedback hidden" id="answer-feedback"><%= @tweet.answer_feedback %></div>
+        <div class="feedback hidden" id="first-feedback"><%= @tweet.first_feedback %></div>
+        <div class="feedback hidden" id="second-feedback"><%= @tweet.second_feedback %></div>
+      </div>
     </div>
   </div>
   <div class="comment-box">
