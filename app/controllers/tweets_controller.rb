@@ -6,6 +6,7 @@ class TweetsController < ApplicationController
 
   def index
     @tweets = Tweet.all.order(created_at: :desc)
+    @random = Tweet.order("RAND()").limit(3)
   end
 
   def new

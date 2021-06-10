@@ -14,19 +14,37 @@
     </ul>
   </div>
 </div>
-
 <div class="main">
-  <% @tweets.each do |tweet|%>
-    <div class="question-wrap">
-      <h3 class="nickname">
-        <%= tweet.user.nickname %>
-      </h3>
-      <div class="question-box">
-        <div class="question-initial">Ｑ．</div>
-        <div class="question-text">
-          <%=link_to tweet.question, tweet_path(tweet.id) %>
+  <div class="pickup-questions">
+    <h3 class="pickup-label">ピックアップクイズ</h3>
+    <div class="random-question">
+      <% @random.each do |quiz| %>
+        <div class="question-box">
+          <div class="question-initial">Ｑ．</div>
+          <div class="question-text">
+            <%= link_to quiz.question,tweet_path(quiz.id) %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="new-post-questions">
+    <h3 class="new-post-label">新規投稿クイズ</h3>
+    <% @tweets.each do |tweet|%>
+      <div class="question-wrap">
+        <h3 class="nickname">
+          <%= tweet.user.nickname %>
+        </h3>
+        <div class="question-box">
+          <div class="question-initial">Ｑ．</div>
+          <div class="question-text">
+            <%=link_to tweet.question, tweet_path(tweet.id) %>
+          </div>
+        </div>
+        <div class="posted-date">
+          <%= l tweet.created_at %>
         </div>
       </div>
-    </div>
-  <%end%>
+    <%end%>
+  </div>
 </div>

@@ -40,9 +40,27 @@
 
 .main{
   width: 100%;
-  height: 90vh;
   background-color: #f8f8f8f8;
   display: block;
+}
+
+.pickup-label{
+  width: 700px;
+  margin: 30px auto 10px;
+  color: purple;
+}
+
+.random-question{
+  width: 700px;
+  border:lightpink 5px ridge;
+  overflow: auto;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.new-post-label{
+  width: 700px;
+  margin: 30px auto 10px;
 }
 
 .question-wrap{
