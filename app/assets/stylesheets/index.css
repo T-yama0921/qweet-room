@@ -5,7 +5,6 @@
 .header{
   width: 100%;
   height: 10vh;
-  background-color: #f8f8f8f8;
   display: flex;
   justify-content: center;
 }
@@ -30,12 +29,34 @@
   justify-content: space-around;
 }
 
+.button{
+  list-style: none;
+}
+
 .left-btn{
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
   text-decoration: none;
+  color: #FFF;
+  background: #fd9535;/*色*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  border: solid 2px #d27d00;
 }
 
 .right-btn{
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
   text-decoration: none;
+  color: #FFF;
+  background: #fd9535;/*色*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  border: solid 2px #d27d00;
 }
 
 .main{
@@ -44,9 +65,28 @@
   display: block;
 }
 
+.new-post{
+  width: 700px;
+  margin: 10px auto;
+}
+
+.new-post-btn{
+  position: relative;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  font-size: 20px;
+  color: #FFF;
+  background: rgb(99, 40, 236);/*色*/
+  border-radius: 10px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  border: solid 2px rgb(83, 29, 145);
+}
+
 .pickup-label{
   width: 700px;
-  margin: 30px auto 10px;
+  margin: 0 auto 10px;
   color: purple;
 }
 
@@ -70,6 +110,12 @@
   border: black 1px solid;
   margin: 10px auto;
   padding: 10px;
+}
+
+.user{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .question-box{

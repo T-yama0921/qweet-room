@@ -5,16 +5,19 @@
     </h1>
     <ul class='btn-lists'>
       <% if user_signed_in? %>
-        <li><%= link_to '新規投稿', new_tweet_path, class: "left-btn" %></li>
-        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "right-btn" %></li>
+        <li class="button"><%= link_to current_user.nickname, "#", class: "left-btn" %></li>
+        <li class="button"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "right-btn" %></li>
       <% else %>
-        <li><%= link_to 'ログイン', new_user_session_path, class: "left-btn" %></li>
-        <li><%= link_to '新規登録', new_user_registration_path, class: "right-btn" %></li>
+        <li class="button"><%= link_to 'ログイン', new_user_session_path, class: "left-btn" %></li>
+        <li class="button"><%= link_to '新規登録', new_user_registration_path, class: "right-btn" %></li>
       <% end %>
     </ul>
   </div>
 </div>
 <div class="main">
+  <div class="new-post">
+    <%= link_to "クイズを投稿する", new_tweet_path, class: "new-post-btn" %>
+  </div>
   <div class="pickup-questions">
     <h3 class="pickup-label">ピックアップクイズ</h3>
     <div class="random-question">
@@ -32,9 +35,17 @@
     <h3 class="new-post-label">新規投稿クイズ</h3>
     <% @tweets.each do |tweet|%>
       <div class="question-wrap">
-        <h3 class="nickname">
-          <%= tweet.user.nickname %>
-        </h3>
+        <div class="user">
+          <h3 class="nickname">
+            <%= tweet.user.nickname %>
+          </h3>
+          <div class="tweet-btn">
+            <% if user_signed_in? && tweet.user_id == current_user.id %>
+              <%= link_to "編集", edit_tweet_path(tweet.id), method: :get, class: "tweet-edit-btn" %>
+              <%= link_to "削除", tweet_path(tweet.id), method: :delete, class:"tweet-destroy-btn" %>
+            <% end %>
+          </div>
+        </div>
         <div class="question-box">
           <div class="question-initial">Ｑ．</div>
           <div class="question-text">
