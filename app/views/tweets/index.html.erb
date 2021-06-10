@@ -3,13 +3,13 @@
     <h1 class="title">
      Qweet Room
     </h1>
-    <ul class='lists-right'>
+    <ul class='btn-lists'>
       <% if user_signed_in? %>
-        <li><%= link_to '新規投稿', new_tweet_path, class: "user-nickname" %></li>
-        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %></li>
+        <li><%= link_to '新規投稿', new_tweet_path, class: "left-btn" %></li>
+        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "right-btn" %></li>
       <% else %>
-        <li><%= link_to 'ログイン', new_user_session_path, class: "login" %></li>
-        <li><%= link_to '新規登録', new_user_registration_path, class: "sign-up" %></li>
+        <li><%= link_to 'ログイン', new_user_session_path, class: "left-btn" %></li>
+        <li><%= link_to '新規登録', new_user_registration_path, class: "right-btn" %></li>
       <% end %>
     </ul>
   </div>
@@ -18,17 +18,21 @@
 <div class="main">
   <% @tweets.each do |tweet|%>
     <div class="question-wrap">
-      <div class="question">
-        <%=link_to tweet.question, tweet_path(tweet.id) %>
+      <h3 class="nickname">
+        <%= tweet.user.nickname %>
+      </h3>
+      <div class="question-box">
+        <div class="question-initial">Ｑ．</div>
+        <div class="question-text">
+          <%=link_to tweet.question, tweet_path(tweet.id) %>
+        </div>
       </div>
       <ul class="choices">
         <li class="choice"><%= tweet.answer %></li>
         <li class="choice"><%= tweet.first_incorrection %></li>
         <li class="choice"><%= tweet.second_incorrection %></li>
       </ul>
-      <div class="nickname">
-        <%= tweet.user.nickname %>
-      </div>
+      
     </div>
   <%end%>
 </div>
