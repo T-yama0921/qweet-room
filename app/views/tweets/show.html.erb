@@ -1,30 +1,47 @@
 <div class="tweet-show">
-  <div class="tweet-box">
+  <div class="tweet-header">
     <h4 class="user-nickname">
       投稿者：<%= @tweet.user.nickname %>
     </h4>
-
+    <div class="tweet-btn">
       <% if user_signed_in? && @tweet.user_id == current_user.id %>
         <%= link_to "編集", edit_tweet_path(@tweet.id), method: :get, class: "tweet-edit-btn" %>
-        <p class="or-text">or</p>
-        <%= link_to "削除", tweet_path(@tweet.id), method: :delete, class:"tweet-destroy" %>
+        <%= link_to "削除", tweet_path(@tweet.id), method: :delete, class:"tweet-destroy-btn" %>
       <% end %>
-
-    <div class="question-box">
-      <div class="question-label">問題</div>
-      <div class="question-text"><%= @tweet.question %></div>
     </div>
-    <div class="choices-table">
-      <ul class="choices">
-        <li class="choice"><%= @tweet.answer %></li>
-        <li class="choice"><%= @tweet.first_incorrection %></li>
-        <li class="choice"><%= @tweet.second_incorrection %></li>
-      </ul>
-      <ul class="feedbacks">
-        <li class="feedback" style="display: none;"><%= @tweet.answer_feedback %></li>
-        <li class="feedback" style="display: none;"><%= @tweet.first_feedback %></li>
-        <li class="feedback" style="display: none;"><%= @tweet.second_feedback %></li>
-      </ul>
+  </div>
+  <div class="tweet-box">
+    <div class="detail-question-box">
+      <div class="detail-question-initial">Ｑ.</div>
+      <div class="detail-question-text"><%= @tweet.question %></div>
+    </div>
+    <div class="detail-choices-box" id="randomChoice"></div>
+    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    const lists = [
+      '<input type="button" class="detail-choice" id="answer-choice" value="<%= @tweet.answer %>">',
+      '<input type="button" class="detail-choice" id="first-incorrection-choice" value="<%= @tweet.first_incorrection %>">',
+      '<input type="button" class="detail-choice" id="second-incorrection-choice" value="<%= @tweet.second_incorrection %>"></input>'
+    ]
+    const randoms = []
+    for(i = 1; i<= 3; i++){
+      while(true){
+        const tmp = Math.floor(Math.random() * lists.length);
+        if(!randoms.includes(tmp)){
+          randoms.push(tmp);
+          break;
+        }
+      }
+    }
+    document.getElementById('randomChoice').innerHTML = lists[randoms[0]] + lists[randoms[1]] + lists[randoms[2]];
+    </script>
+    <div class="feedbacks-box">
+      <div class="feedback-label">フィードバック</div>
+      <div class="feedbacks">
+        <div class="feedback hidden" id="answer-feedback"><%= @tweet.answer_feedback %></div>
+        <div class="feedback hidden" id="first-feedback"><%= @tweet.first_feedback %></div>
+        <div class="feedback hidden" id="second-feedback"><%= @tweet.second_feedback %></div>
+      </div>
     </div>
   </div>
   <div class="comment-box">
