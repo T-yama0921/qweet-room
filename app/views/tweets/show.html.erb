@@ -1,29 +1,31 @@
 <div class="tweet-show">
-  <div class="tweet-box">
+  <div class="tweet-header">
     <h4 class="user-nickname">
       投稿者：<%= @tweet.user.nickname %>
     </h4>
-
+    <div class="tweet-btn">
       <% if user_signed_in? && @tweet.user_id == current_user.id %>
         <%= link_to "編集", edit_tweet_path(@tweet.id), method: :get, class: "tweet-edit-btn" %>
-        <p class="or-text">or</p>
-        <%= link_to "削除", tweet_path(@tweet.id), method: :delete, class:"tweet-destroy" %>
+        <%= link_to "削除", tweet_path(@tweet.id), method: :delete, class:"tweet-destroy-btn" %>
       <% end %>
-
-    <div class="question-box">
-      <div class="question-label">問題</div>
-      <div class="question-text"><%= @tweet.question %></div>
     </div>
-    <div class="choices-table">
-      <ul class="choices">
-        <li class="choice"><%= @tweet.answer %></li>
-        <li class="choice"><%= @tweet.first_incorrection %></li>
-        <li class="choice"><%= @tweet.second_incorrection %></li>
-      </ul>
-      <ul class="feedbacks">
-        <li class="feedback" style="display: none;"><%= @tweet.answer_feedback %></li>
-        <li class="feedback" style="display: none;"><%= @tweet.first_feedback %></li>
-        <li class="feedback" style="display: none;"><%= @tweet.second_feedback %></li>
+  </div>
+  <div class="tweet-box">
+    <div class="detail-question-box">
+      <div class="detail-question-initial">Ｑ.</div>
+      <div class="detail-question-text"><%= @tweet.question %></div>
+    </div>
+    <div class="detail-choices-table">
+      <div class="detail-choices">
+        <div class="detail-choice-box"><a href="" class="detail-choice"><%= @tweet.answer %></a></div>
+        <div class="detail-choice-box"><a href="" class="detail-choice"><%= @tweet.first_incorrection %></a></div>
+        <div class="detail-choice-box"><a href="" class="detail-choice"><%= @tweet.second_incorrection %></a></div>
+      </div>
+      <div class="feedback-label">フィードバック</div>
+        <div class="feedbacks">
+        <div class="feedback" style="display: none;"><%= @tweet.answer_feedback %></div>
+        <div class="feedback" style="display: none;"><%= @tweet.first_feedback %></div>
+        <div class="feedback" style="display: none;"><%= @tweet.second_feedback %></div>
       </ul>
     </div>
   </div>
