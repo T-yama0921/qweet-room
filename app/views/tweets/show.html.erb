@@ -15,11 +15,26 @@
       <div class="detail-question-initial">Ｑ.</div>
       <div class="detail-question-text"><%= @tweet.question %></div>
     </div>
-    <div class="detail-choices-box">
-      <input type="button" class="detail-choice" id="answer-choice" value="<%= @tweet.answer %>">
-      <input type="button" class="detail-choice" id="first-incorrection-choice" value="<%= @tweet.first_incorrection %>">
-      <input type="button" class="detail-choice" id="second-incorrection-choice" value="<%= @tweet.second_incorrection %>">
-    </div>
+    <div class="detail-choices-box" id="randomChoice"></div>
+    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    const lists = [
+      '<input type="button" class="detail-choice" id="answer-choice" value="<%= @tweet.answer %>">',
+      '<input type="button" class="detail-choice" id="first-incorrection-choice" value="<%= @tweet.first_incorrection %>">',
+      '<input type="button" class="detail-choice" id="second-incorrection-choice" value="<%= @tweet.second_incorrection %>"></input>'
+    ]
+    const randoms = []
+    for(i = 1; i<= 3; i++){
+      while(true){
+        const tmp = Math.floor(Math.random() * lists.length);
+        if(!randoms.includes(tmp)){
+          randoms.push(tmp);
+          break;
+        }
+      }
+    }
+    document.getElementById('randomChoice').innerHTML = lists[randoms[0]] + lists[randoms[1]] + lists[randoms[2]];
+    </script>
     <div class="feedbacks-box">
       <div class="feedback-label">フィードバック</div>
       <div class="feedbacks">
