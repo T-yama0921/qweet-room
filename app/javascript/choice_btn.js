@@ -4,8 +4,10 @@ function answer (){
   const secondBtn = document.getElementById("second-incorrection-choice")
 
   answerBtn.addEventListener("click", () => {
+    const answerBtn = document.getElementById("answer-choice")
     const firstBtn = document.getElementById("first-incorrection-choice")
-    const secondBtn = document.getElementById("second-incorrection-choice")  
+    const secondBtn = document.getElementById("second-incorrection-choice")
+    answerBtn.setAttribute("style","background: orange;")
     firstBtn.setAttribute("disabled","")
     firstBtn.setAttribute("style","background: gray;")
     secondBtn.setAttribute("disabled","")
@@ -14,9 +16,11 @@ function answer (){
 
   firstBtn.addEventListener("click", () => {
     const answerBtn = document.getElementById("answer-choice")
+    const firstBtn = document.getElementById("first-incorrection-choice")
     const secondBtn = document.getElementById("second-incorrection-choice")  
     answerBtn.setAttribute("disabled","")
-    answerBtn.setAttribute("style","background: gray;")
+    answerBtn.setAttribute("style","background: darkorange;")
+    firstBtn.setAttribute("style","background: darkblue;")
     secondBtn.setAttribute("disabled","")
     secondBtn.setAttribute("style","background: gray;")
   });
@@ -24,10 +28,12 @@ function answer (){
   secondBtn.addEventListener("click", () => {
     const answerBtn = document.getElementById("answer-choice")
     const firstBtn = document.getElementById("first-incorrection-choice")  
+    const secondBtn = document.getElementById("second-incorrection-choice")  
     answerBtn.setAttribute("disabled","")
-    answerBtn.setAttribute("style","background: gray;")
+    answerBtn.setAttribute("style","background: darkorange;")
     firstBtn.setAttribute("disabled","")
     firstBtn.setAttribute("style","background: gray;")
+    secondBtn.setAttribute("style","background: darkblue;")
   });
 };
  
