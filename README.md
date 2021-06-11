@@ -68,6 +68,9 @@
 - belongs_to :tweet
 - belongs_to :tag
 
+<br>
+<br>
+
 # README
 
 ## アプリケーション名	
@@ -81,6 +84,7 @@
 
 ## テスト用アカウント	
   ユーザー名：Tester01<br>
+  メール：test@test.com<br>
   パスワード：tester01<br>
 
 ## 利用方法
