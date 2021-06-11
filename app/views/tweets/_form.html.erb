@@ -8,32 +8,29 @@
   </div>
 
   <div class="field">
-    <%= f.label :answer, "選択肢１" %><br />
-    <%= f.text_field :answer, id:"tweet_answer" %>
+    <%= f.label :answer, "正解" %><br />
+    <%= f.text_field :answer, class: :form__string, id:"tweet_answer" %>
   </div>
-
   <div class="field">
-    <%= f.label :first_incorrection, "選択肢２" %><br />
-    <%= f.text_field :first_incorrection, id:"tweet_first_incorrection" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :second_incorrection, "選択肢３" %><br />
-    <%= f.text_field :second_incorrection, id:"tweet_second_incorrection" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :answer_feedback, "フィードバック１" %><br />
+    <%= f.label :answer_feedback, "正解のフィードバック" %><br />
     <%= f.text_area :answer_feedback, class: :form__text, id:"tweet_answer_feedback" %>
   </div>
 
   <div class="field">
-    <%= f.label :first_feedback, "フィードバック２" %><br />
+    <%= f.label :first_incorrection, "選択肢１" %><br />
+    <%= f.text_field :first_incorrection, class: :form__string, id:"tweet_first_incorrection" %>
+  </div>
+  <div class="field">
+    <%= f.label :first_feedback, "不正解のフィードバック１" %><br />
     <%= f.text_area :first_feedback, class: :form__text, id:"tweet_first_feedback" %>
   </div>
 
   <div class="field">
-    <%= f.label :second_feedback, "フィードバック３" %><br />
+    <%= f.label :second_incorrection, "選択肢２" %><br />
+    <%= f.text_field :second_incorrection, class: :form__string, id:"tweet_second_incorrection" %>
+  </div>
+  <div class="field">
+    <%= f.label :second_feedback, "不正解のフィードバック２" %><br />
     <%= f.text_area :second_feedback, class: :form__text, id:"tweet_second_feedback" %>
   </div>
 

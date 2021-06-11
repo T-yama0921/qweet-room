@@ -1,0 +1,16 @@
+<div class="header">
+  <div class="inner-header">
+    <h1 class="title">
+     <%= link_to "Qweet Room", root_path, class: "title-text"%>
+    </h1>
+    <ul class='btn-lists'>
+      <% if user_signed_in? %>
+        <li class="button"><%= link_to current_user.nickname, "#", class: "left-btn" %></li>
+        <li class="button"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "right-btn" %></li>
+      <% else %>
+        <li class="button"><%= link_to 'ログイン', new_user_session_path, class: "left-btn" %></li>
+        <li class="button"><%= link_to '新規登録', new_user_registration_path, class: "right-btn" %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

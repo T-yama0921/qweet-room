@@ -23,6 +23,11 @@
   font-weight: bold;
 }
 
+.title-text{
+  text-decoration: none;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 .btn-lists{
   width: 40%;
   display: flex;
