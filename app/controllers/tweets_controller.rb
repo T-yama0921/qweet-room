@@ -51,7 +51,7 @@ class TweetsController < ApplicationController
       :second_incorrection,
       :answer_feedback,
       :first_feedback,
-      :second_feedback,
+      :second_feedback
     ).merge(
       user_id: current_user.id
     )
