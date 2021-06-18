@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'クイズ投稿', type: :system do
+RSpec.describe 'ツイート投稿', type: :system do
   before do
     @user = FactoryBot.create(:user)
     @tweet = FactoryBot.build(:tweet)
   end
-  context 'クイズ投稿ができるとき'do
+  context 'ツイート投稿ができるとき'do
     it 'ログインしたユーザーは新規投稿できる' do
       # ログインする
       visit new_user_session_path
@@ -31,11 +31,11 @@ RSpec.describe 'クイズ投稿', type: :system do
       }.to change { Tweet.count }.by(1)
       # トップページに遷移する
       expect(current_path).to eq(root_path)
-      # トップページには先ほど投稿した内容のクイズが存在することを確認する（question）
+      # トップページには先ほど投稿した内容のツイートが存在することを確認する（question）
       expect(page).to have_content(@tweet.question)
     end
   end
-  context 'クイズ投稿ができないとき'do
+  context 'ツイート投稿ができないとき'do
     it 'ログインしていないと新規投稿ページに遷移できない' do
       # トップページに遷移する
       visit root_path
@@ -52,8 +52,8 @@ RSpec.describe 'ツイート編集', type: :system do
     @tweet1 = FactoryBot.create(:tweet)
     @tweet2 = FactoryBot.create(:tweet)
   end
-  context 'クイズ編集ができるとき' do
-    it 'ログインしたユーザーは自分が投稿したクイズの編集ができる' do
+  context 'ツイート編集ができるとき' do
+    it 'ログインしたユーザーは自分が投稿したツイートの編集ができる' do
       # ツイート1を投稿したユーザーでログインする
       visit new_user_session_path
       fill_in 'email', with: @tweet1.user.email
@@ -132,6 +132,53 @@ RSpec.describe 'ツイート編集', type: :system do
       expect(
         all('.user')[0].find('.tweet-btn')
       ).to have_no_link '編集', href: edit_tweet_path(@tweet1)
+    end
+  end
+end
+
+RSpec.describe 'ツイート削除', type: :system do
+  before do
+    @tweet1 = FactoryBot.create(:tweet)
+    @tweet2 = FactoryBot.create(:tweet)
+  end
+  context 'ツイート削除ができるとき' do
+    it 'ログインしたユーザーは自らが投稿したツイートの削除ができる' do
+      # ツイート1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in 'email', with: @tweet1.user.email
+      fill_in 'password', with: @tweet1.user.password
+      find('input[name="commit"]').click
+      expect(current_path).to eq(root_path)
+      # ツイート1に「削除」へのリンクがあることを確認する
+      expect(all('.user')[1]).to have_link '削除', href: tweet_path(@tweet1)
+      # 投稿を削除するとレコードの数が1減ることを確認する
+      expect{
+        all('.user')[1].find_link('削除', href: tweet_path(@tweet1)).click
+      }.to change { Tweet.count }.by(-1)
+      # トップページに遷移したことを確認する
+      expect(current_path).to eq(root_path)
+      # トップページにはツイート1の内容が存在しないことを確認する（テキスト）
+      expect(page).to have_no_content("#{@tweet1.question}")
+    end
+  end
+  context 'ツイート削除ができないとき' do
+    it 'ログインしたユーザーは自分以外が投稿したツイートの削除ができない' do
+      # ツイート1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in 'email', with: @tweet1.user.email
+      fill_in 'password', with: @tweet1.user.password
+      find('input[name="commit"]').click
+      expect(current_path).to eq(root_path)
+      # ツイート2に「削除」へのリンクがないことを確認する
+      expect(all('.user')[0]).to have_no_link '削除', href: tweet_path(@tweet2)
+    end
+    it 'ログインしていないとツイートの削除ボタンがない' do
+      # トップページに移動する
+      visit root_path
+      # ツイート1に「削除」へのリンクがないことを確認する
+      expect(all('.user')[1]).to have_no_link '削除', href: tweet_path(@tweet1)
+      # ツイート2に「削除」へのリンクがないことを確認する
+      expect(all(".user")[0]).to have_no_link '削除', href: tweet_path(@tweet2)
     end
   end
 end
