@@ -117,21 +117,15 @@ RSpec.describe 'ツイート編集', type: :system do
       find('input[name="commit"]').click
       expect(current_path).to eq(root_path)
       # ツイート2に「編集」へのリンクがないことを確認する
-      expect(
-        all('.user')[0].find('.tweet-btn')
-      ).to have_no_link '編集', href: edit_tweet_path(@tweet1)
+      expect(all('.user')[0]).to have_no_link '編集', href: edit_tweet_path(@tweet1)
     end
     it 'ログインしていないとツイートの編集画面には遷移できない' do
       # トップページにいる
       visit root_path
       # ツイート1に「編集」へのリンクがないことを確認する
-      expect(
-        all('.user')[1].find('.tweet-btn')
-      ).to have_no_link '編集', href: edit_tweet_path(@tweet1)
+      expect(all('.user')[1]).to have_no_link '編集', href: edit_tweet_path(@tweet1)
       # ツイート2に「編集」へのリンクがないことを確認する
-      expect(
-        all('.user')[0].find('.tweet-btn')
-      ).to have_no_link '編集', href: edit_tweet_path(@tweet1)
+      expect(all('.user')[0]).to have_no_link '編集', href: edit_tweet_path(@tweet1)
     end
   end
 end
@@ -180,5 +174,77 @@ RSpec.describe 'ツイート削除', type: :system do
       # ツイート2に「削除」へのリンクがないことを確認する
       expect(all(".user")[0]).to have_no_link '削除', href: tweet_path(@tweet2)
     end
+  end
+end
+
+RSpec.describe 'ツイート詳細', type: :system do
+  before do
+    @tweet = FactoryBot.create(:tweet)
+  end
+  it 'ログイン状態問わず、ユーザーはツイート詳細ページに遷移してクイズの選択肢とフィードバックが表示される' do
+    # トップページのツイートに「詳細」へのリンクがある
+    visit root_path
+    expect(
+      find('.new-post-questions').find('.question-box')
+    ).to have_link @tweet.question, href: tweet_path(@tweet)
+    # 詳細ページに遷移する
+    visit tweet_path(@tweet)
+    # 詳細ページにツイートの内容が含まれている
+    expect(page).to have_content(@tweet.question)
+    expect(page).to have_selector('#answer-choice')
+    expect(page).to have_selector('#first-incorrection-choice')
+    expect(page).to have_selector('#second-incorrection-choice')
+    # フィードバックが表示されていないことを確認する
+    expect(page).to have_no_content(@tweet.answer_feedback)
+    expect(page).to have_no_content(@tweet.first_feedback)
+    expect(page).to have_no_content(@tweet.second_feedback)
+  end
+  it '正解の選択肢を選択すると、正解のフィードバックが表示される' do
+    # 詳細ページに遷移する
+    visit tweet_path(@tweet)
+    # 正解の選択肢をクリックする
+    find_by_id('answer-choice').click
+    # 正解のフィードバックが表示されていることを確認する
+    expect(page).to have_content(@tweet.answer_feedback)
+    # 不正解１と不正解２のフィードバックは表示されていないことを確認する
+    expect(page).to have_no_content(@tweet.first_feedback)
+    expect(page).to have_no_content(@tweet.second_feedback)
+    # 残りの選択肢をクリックしてもフィードバックは追加で表示されないことを確認する
+    find_by_id('first-incorrection-choice').click
+    find_by_id('second-incorrection-choice').click
+    expect(page).to have_no_content(@tweet.first_feedback)
+    expect(page).to have_no_content(@tweet.second_feedback)
+  end
+  it '不正解１の選択肢を選択すると、不正解１のフィードバックが表示される' do
+    # 詳細ページに遷移する
+    visit tweet_path(@tweet)
+    # 不正解１の選択肢をクリックする
+    find_by_id('first-incorrection-choice').click
+    # 不正解１のフィードバックが表示されていることを確認する
+    expect(page).to have_content(@tweet.first_feedback)
+    # 不正解２と正解のフィードバックは表示されていないことを確認する
+    expect(page).to have_no_content(@tweet.answer_feedback)
+    expect(page).to have_no_content(@tweet.second_feedback)
+    # 残りの選択肢をクリックしてもフィードバックは追加で表示されないことを確認する
+    find_by_id('answer-choice').click
+    find_by_id('second-incorrection-choice').click
+    expect(page).to have_no_content(@tweet.answer_feedback)
+    expect(page).to have_no_content(@tweet.second_feedback)
+  end
+  it '不正解２の選択肢を選択すると、不正解２のフィードバックが表示される' do
+    # 詳細ページに遷移する
+    visit tweet_path(@tweet)
+    # 不正解２の選択肢をクリックする
+    find_by_id('second-incorrection-choice').click
+    # 不正解２のフィードバックが表示されていることを確認する
+    expect(page).to have_content(@tweet.second_feedback)
+    # 正解と不正解１のフィードバックは表示されていないことを確認する
+    expect(page).to have_no_content(@tweet.answer_feedback)
+    expect(page).to have_no_content(@tweet.first_feedback)
+    # 残りの選択肢をクリックしてもフィードバックは追加で表示されないことを確認する
+    find_by_id('answer-choice').click
+    find_by_id('first-incorrection-choice').click
+    expect(page).to have_no_content(@tweet.answer_feedback)
+    expect(page).to have_no_content(@tweet.first_feedback)
   end
 end
