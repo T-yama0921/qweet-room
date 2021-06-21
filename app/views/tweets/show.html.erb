@@ -51,7 +51,7 @@
     <div class="container">
       <% if user_signed_in? %>
         <%= form_with(model: [@tweet, @comment], local: true) do |form| %>
-          <%= form.text_area :message, placeholder: "コメントする", rows: "5", class: :form__comment %>
+          <%= form.text_area :message, placeholder: "コメントする", rows: "5", class: :form__comment, id:"comment_text" %>
           <%= form.submit "コメントを投稿" %>
         <% end %>
       <% else %>
