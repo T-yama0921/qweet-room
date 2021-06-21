@@ -48,11 +48,15 @@
   </div>
   <div class="comment-box">
     <div class="comment-label">コメント</div>
-    <form>
-      <textarea class="comment-text"></textarea>
-      <button type="submit" class="comment-btn">
-        <span>コメントする<span>
-      </button>
-    </form>
+    <div class="container">
+      <% if user_signed_in? %>
+        <%= form_with(model: [@tweet, @comment], local: true) do |form| %>
+          <%= form.text_area :text, placeholder: "コメントする", rows: "2" %>
+          <%= form.submit "SEND" %>
+        <% end %>
+      <% else %>
+        <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+      <% end %>
+    </div>
   </div>
 </div>
