@@ -1,6 +1,12 @@
 <%= render "header" %>
 
 <div class="main">
+  <div class="search-box">
+    <%= form_with(url: search_tweets_path, local: true, method: :get, class: "search-form") do |form| %>
+      <%= form.text_field :keyword, placeholder: "クイズを検索する", class: "search-input" %>
+      <%= form.submit "検 索", class: "search-btn" %>
+    <% end %>
+  </div>
   <div class="new-post">
     <%= link_to "クイズを投稿する", new_tweet_path, class: "new-post-btn" %>
   </div>
