@@ -10,21 +10,8 @@
   <div class="new-post">
     <%= link_to "クイズを投稿する", new_tweet_path, class: "new-post-btn" %>
   </div>
-  <div class="pickup-questions">
-    <h3 class="pickup-label">ピックアップクイズ</h3>
-    <div class="random-question">
-      <% @random.each do |quiz| %>
-        <div class="question-box">
-          <div class="question-initial">Ｑ．</div>
-          <div class="question-text">
-            <%= link_to quiz.question,tweet_path(quiz.id) %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
   <div class="new-post-questions">
-    <h3 class="new-post-label">新規投稿クイズ</h3>
+    <h3 class="new-post-label">「<%= params[:keyword] %>」の検索結果</h3>
     <% @tweets.each do |tweet|%>
       <div class="question-wrap">
         <div class="user">
