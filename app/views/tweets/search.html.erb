@@ -1,0 +1,40 @@
+<%= render "header" %>
+
+<div class="main">
+  <div class="search-box">
+    <%= form_with(url: search_tweets_path, local: true, method: :get, class: "search-form") do |form| %>
+      <%= form.text_field :keyword, placeholder: "クイズを検索する", class: "search-input" %>
+      <%= form.submit "検 索", class: "search-btn" %>
+    <% end %>
+  </div>
+  <div class="new-post">
+    <%= link_to "クイズを投稿する", new_tweet_path, class: "new-post-btn" %>
+  </div>
+  <div class="new-post-questions">
+    <h3 class="new-post-label">「<%= params[:keyword] %>」の検索結果</h3>
+    <% @tweets.each do |tweet|%>
+      <div class="question-wrap">
+        <div class="user">
+          <h3 class="nickname">
+            <%= tweet.user.nickname %>
+          </h3>
+          <div class="tweet-btn">
+            <% if user_signed_in? && tweet.user_id == current_user.id %>
+              <%= link_to "編集", edit_tweet_path(tweet.id), method: :get, class: "tweet-edit-btn" %>
+              <%= link_to "削除", tweet_path(tweet.id), method: :delete, class:"tweet-destroy-btn" %>
+            <% end %>
+          </div>
+        </div>
+        <div class="question-box">
+          <div class="question-initial">Ｑ．</div>
+          <div class="question-text">
+            <%=link_to tweet.question, tweet_path(tweet.id) %>
+          </div>
+        </div>
+        <div class="posted-date">
+          <%= l tweet.created_at %>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</div>
