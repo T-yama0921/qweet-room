@@ -28,10 +28,10 @@
 
 .form__wrapper{
   width: 700px;
-  margin: auto;
+  margin: 0 auto;
 }
 
-.page-heading{
+.page-heading-text{
   text-align: center;
 }
 
