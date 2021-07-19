@@ -86,3 +86,12 @@
 .form__comment{
   width: 500px;
 }
+
+.comment-wrap{
+  border: #666 1px solid;
+  background-color: #FFF;
+}
+
+.comment-date{
+  color: #666;
+}

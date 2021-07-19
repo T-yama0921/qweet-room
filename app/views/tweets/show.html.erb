@@ -64,13 +64,15 @@
     <div class="comments">
       <h4>＜コメント一覧＞</h4>
       <% @comments.each do |comment| %>
-        <div class="comment-date">
-          <%= l comment.created_at %>
+        <div class="comment-wrap">
+          <p>
+            <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
+            <%= comment.message %>
+          </p>
+          <div class="comment-date">
+            <%= l comment.created_at %>
+          </div>
         </div>
-        <p>
-          <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
-          <%= comment.message %>
-        </p>
       <% end %>
     </div>
   </div>
