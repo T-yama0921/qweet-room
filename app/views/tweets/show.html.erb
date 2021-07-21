@@ -1,79 +1,81 @@
 <%= render "header" %>
 
-<div class="tweet-show">
-  <div class="tweet-header">
-    <h4 class="user-nickname">
-      投稿者：<%= @tweet.user.nickname %>
-    </h4>
-    <div class="tweet-btn">
-      <% if user_signed_in? && @tweet.user_id == current_user.id %>
-        <%= link_to "編集", edit_tweet_path(@tweet.id), method: :get, class: "tweet-edit-btn" %>
-        <%= link_to "削除", tweet_path(@tweet.id), method: :delete, class:"tweet-destroy-btn" %>
-      <% end %>
-    </div>
-  </div>
-  <div class="posted-date">
-    <%= l @tweet.created_at %>投稿
-  </div>
-  <div class="tweet-box">
-    <div class="detail-question-box">
-      <div class="detail-question-initial">Ｑ.</div>
-      <div class="detail-question-text"><%= @tweet.question %></div>
-    </div>
-    <div class="detail-choices-box" id="randomChoice"></div>
-    <script type="text/javascript"></script>
-    <script type="text/javascript">
-    const lists = [
-      '<input type="button" class="detail-choice" id="answer-choice" value="<%= @tweet.answer %>">',
-      '<input type="button" class="detail-choice" id="first-incorrection-choice" value="<%= @tweet.first_incorrection %>">',
-      '<input type="button" class="detail-choice" id="second-incorrection-choice" value="<%= @tweet.second_incorrection %>"></input>'
-    ]
-    const randoms = []
-    for(i = 1; i<= 3; i++){
-      while(true){
-        const tmp = Math.floor(Math.random() * lists.length);
-        if(!randoms.includes(tmp)){
-          randoms.push(tmp);
-          break;
-        }
-      }
-    }
-    document.getElementById('randomChoice').innerHTML = lists[randoms[0]] + lists[randoms[1]] + lists[randoms[2]];
-    </script>
-    <div class="feedbacks-box">
-      <div class="feedback-label">フィードバック</div>
-      <div class="feedbacks">
-        <div class="feedback hidden" id="answer-feedback"><%= @tweet.answer_feedback %></div>
-        <div class="feedback hidden" id="first-feedback"><%= @tweet.first_feedback %></div>
-        <div class="feedback hidden" id="second-feedback"><%= @tweet.second_feedback %></div>
+<div class="main">
+  <div class="tweet-show">
+    <div class="tweet-header">
+      <h4 class="user-nickname">
+        投稿者：<%= @tweet.user.nickname %>
+      </h4>
+      <div class="tweet-btn">
+        <% if user_signed_in? && @tweet.user_id == current_user.id %>
+          <%= link_to "編集", edit_tweet_path(@tweet.id), method: :get, class: "tweet-edit-btn" %>
+          <%= link_to "削除", tweet_path(@tweet.id), method: :delete, class:"tweet-destroy-btn" %>
+        <% end %>
       </div>
     </div>
-  </div>
-  <div class="comment-box">
-    <div class="comment-label">コメント</div>
-    <div class="container">
-      <% if user_signed_in? %>
-        <%= form_with(model: [@tweet, @comment], local: true) do |form| %>
-          <%= form.text_area :message, placeholder: "コメントする", rows: "5", class: :form__comment, id:"comment_text" %>
-          <%= form.submit "コメントを投稿" %>
-        <% end %>
-      <% else %>
-        <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
-      <% end %>
+    <div class="posted-date">
+      <%= l @tweet.created_at %>投稿
     </div>
-    <div class="comments">
-      <h4>＜コメント一覧＞</h4>
-      <% @comments.each do |comment| %>
-        <div class="comment-wrap">
-          <p>
-            <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
-            <%= comment.message %>
-          </p>
-          <div class="comment-date">
-            <%= l comment.created_at %>
-          </div>
+    <div class="tweet-box">
+      <div class="detail-question-box">
+        <div class="detail-question-initial">Ｑ.</div>
+        <div class="detail-question-text"><%= @tweet.question %></div>
+      </div>
+      <div class="detail-choices-box" id="randomChoice"></div>
+      <script type="text/javascript"></script>
+      <script type="text/javascript">
+      const lists = [
+        '<input type="button" class="detail-choice" id="answer-choice" value="<%= @tweet.answer %>">',
+        '<input type="button" class="detail-choice" id="first-incorrection-choice" value="<%= @tweet.first_incorrection %>">',
+        '<input type="button" class="detail-choice" id="second-incorrection-choice" value="<%= @tweet.second_incorrection %>"></input>'
+      ]
+      const randoms = []
+      for(i = 1; i<= 3; i++){
+        while(true){
+          const tmp = Math.floor(Math.random() * lists.length);
+          if(!randoms.includes(tmp)){
+            randoms.push(tmp);
+            break;
+          }
+        }
+      }
+      document.getElementById('randomChoice').innerHTML = lists[randoms[0]] + lists[randoms[1]] + lists[randoms[2]];
+      </script>
+      <div class="feedbacks-box">
+        <div class="feedback-label">フィードバック</div>
+        <div class="feedbacks">
+          <div class="feedback hidden" id="answer-feedback"><%= @tweet.answer_feedback %></div>
+          <div class="feedback hidden" id="first-feedback"><%= @tweet.first_feedback %></div>
+          <div class="feedback hidden" id="second-feedback"><%= @tweet.second_feedback %></div>
         </div>
-      <% end %>
+      </div>
+    </div>
+    <div class="comment-box">
+      <div class="comment-label">コメント</div>
+      <div class="container">
+        <% if user_signed_in? %>
+          <%= form_with(model: [@tweet, @comment], local: true) do |form| %>
+            <%= form.text_area :message, placeholder: "コメントする", rows: "5", class: :form__comment, id:"comment_text" %>
+            <%= form.submit "コメントを投稿" %>
+          <% end %>
+        <% else %>
+          <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+        <% end %>
+      </div>
+      <div class="comments">
+        <h4>＜コメント一覧＞</h4>
+        <% @comments.each do |comment| %>
+          <div class="comment-wrap">
+            <p>
+              <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
+              <%= comment.message %>
+            </p>
+            <div class="comment-date">
+              <%= l comment.created_at %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
